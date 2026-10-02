@@ -27,9 +27,10 @@ pipeline {
             steps {
                 sh 'yarn test:e2e'
             }
-            steps {
-                junit allowEmptyResults: true, testResults: 'reports/*.xml'
-                archiveArtifacts artifacts: 'reports/*.xml', allowEmptyArchive: true
+            post {
+                always {
+                    junit 'reports/cypress-junit.xml'
+                }
             }
         }
 
