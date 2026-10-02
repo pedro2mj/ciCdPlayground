@@ -11,9 +11,21 @@ pipeline {
             }
         }
 
+        stage('test') {
+            steps {
+                sh 'yarn test'
+            }
+        }
+
         stage('build') {
             steps {
                 sh 'yarn build'
+            }
+        }
+
+        stage('e2e') {
+            steps {
+                sh 'yarn test:e2e'
             }
         }
 
@@ -42,5 +54,6 @@ pipeline {
                     userMetadata: []
             }
         }
+
     }
 }
