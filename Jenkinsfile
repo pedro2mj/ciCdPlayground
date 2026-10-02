@@ -29,6 +29,13 @@ pipeline {
             }
         }
 
+        stage('reports') {
+            steps {
+                junit allowEmptyResults: true, testResults: 'reports/*.xml'
+                archiveArtifacts artifacts: 'reports/*.xml', allowEmptyArchive: true
+            }
+        }
+
         stage('deploy') {
             steps {
                 s3Upload consoleLogLevel: 'INFO', 
