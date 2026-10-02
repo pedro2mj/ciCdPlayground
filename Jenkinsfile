@@ -27,11 +27,6 @@ pipeline {
             steps {
                 sh 'yarn test:e2e'
             }
-            post {
-                always {
-                    junit 'reports/cypress-junit.xml'
-                }
-            }
         }
 
         stage('deploy') {
@@ -60,5 +55,14 @@ pipeline {
             }
         }
 
+    }
+
+    post {
+        always {
+            junit testResults: 'reports/*.xml'
+            script {
+                currentBuild.displayName = "#${env.BUILD_NUMBER} - Pedro"
+            }
+        }
     }
 }
